@@ -1,0 +1,78 @@
+const util = require('util');
+const fs = require('fs-extra');
+const { zokou } = require(__dirname + "/../framework/zokou");
+const { format } = require(__dirname + "/../framework/mesfonctions");
+const os = require("os");
+const moment = require("moment-timezone");
+const s = require(__dirname + "/../set");
+
+zokou({ nomCom: "2025", categorie: "Menu" }, async (dest, zk, commandeOptions) => {
+  let { ms, repondre, prefixe, nomAuteurMessage, mybotpic } = commandeOptions;
+
+  let { cm } = require(__dirname + "/../framework/zokou");
+
+  let coms = {};
+  let mode = s.MODE.toLowerCase() !== "yes" ? "private" : "public";
+
+  cm.map((com) => {
+    if (!coms[com.categorie]) coms[com.categorie] = [];
+    coms[com.categorie].push(com.nomCom);
+  });
+
+  moment.tz.setDefault(s.TZ);
+  const time = moment().format('HH:mm:ss');
+  const date = moment().format('DD/MM/YYYY');
+
+  let infoMsg = `
+┏❏ ⌜ MARCEUSE-XMD😈  ⌟ ❐
+┃ ⿻ Mode: ${mode}
+┃ ⿻ Owner: ${s.OWNER_NAME}
+┃ ⿻ Library: Baileys
+️┃ ⿻ Prefix: ${s.PREFIXE}
+️┃ ⿻ Date: ${date}
+┃ ⿻ Time: ${time}
+┃ ⿻ Tools: ${cm.length}
+┃ ⿻ RAM: ${format(os.totalmem() - os.freemem())}/${format(os.totalmem())}
+┃ ⿻ Host: ${os.platform()}
+┗❏\n`;
+
+  let menuMsg = `
+┏━━━━━ COMMANDS ━━━━━┓
+┣   📌 MARCEUSE-XMD Menu
+┗━━━━━━━━━━━━━━━━━━━┛\n`;
+
+  for (const cat in coms) {
+    menuMsg += `\n📁 *${cat.toUpperCase()}*\n`;
+    for (const cmd of coms[cat]) {
+      menuMsg += ` ➤ ${prefixe}${cmd}\n`;
+    }
+  }
+
+  menuMsg += `
+━━━━━━━━━━━━━━━━━━━━━━
+🗓️ 𝗧𝗵𝗮𝗻𝗸𝘀 𝗙𝗼𝗿 𝘁𝗿𝘂𝘀𝘁 𝗨𝘀 2025
+🔧 Powered by: Nicolaus 😈
+━━━━━━━━━━━━━━━━━━━━━━`;
+
+  const media = mybotpic();
+
+  try {
+    if (media.match(/\.(mp4|gif)$/i)) {
+      await zk.sendMessage(dest, {
+        video: { url: media },
+        caption: infoMsg + menuMsg,
+        gifPlayback: true
+      }, { quoted: ms });
+    } else if (media.match(/\.(jpeg|jpg|png)$/i)) {
+      await zk.sendMessage(dest, {
+        image: { url: media },
+        caption: infoMsg + menuMsg
+      }, { quoted: ms });
+    } else {
+      await repondre(infoMsg + menuMsg);
+    }
+  } catch (e) {
+    console.error("❌ Menu Error:", e);
+    await repondre("🥵 Menu error: " + e.message);
+  }
+});
