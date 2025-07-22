@@ -1,0 +1,102 @@
+{
+  "name": "*MARCEUSE-XMD😈",
+  "description": "WhatsApp bot developed by Kingston Tech",
+  "keywords": ["bot", "node", "baileys", "whatsapp"],
+  "logo": "https://telegra.ph/file/c0b64b8b1b74475ef90a5.jpg",
+  "repository": "",
+  "success_url": "/",
+  "stack": "container",
+  "env": {
+    "PREFIX": {
+      "description": "Choose the prefix for your bot commands (e.g., '#').",
+      "value": ".",
+      "required": true
+    },
+    "AUTO_READ_STATUS": {
+      "description": "Enable automatic reading of contact statuses ('yes' to activate, 'no' to deactivate).",
+      "value": "yes",
+      "required": false
+    },
+    "AUTO_DOWNLOAD_STATUS": {
+      "description": "Enable automatic downloading and sending of contact statuses ('yes' to activate, 'no' to deactivate).",
+      "value": "no",
+      "required": false
+    },
+    "PM_PERMIT": {
+      "description": "Restrict other users from using the bot in private messages ('yes' to activate, 'no' to deactivate).",
+      "value": "no",
+      "required": true
+    },
+    "BOT_NAME": {
+      "description": "Enter a name for your bot.",
+      "value": "MARCEUSE-XMD😈",
+      "required": false
+    },
+    "BOT_MENU_LINKS": {
+      "description": "Provide one or more URLs for the bot menu (e.g., 'url1,url2,url3').",
+      "value": "https://telegra.ph/file/9408d6f75ef62a0be6ae9.jpg",
+      "required": false
+    },
+    "PUBLIC_MODE": {
+      "description": "Set the bot to public mode ('yes') or private mode ('no').",
+      "value": "no",
+      "required": true
+    },
+    "HEROKU_API_KEY": {
+      "description": "Enter your Heroku API key (optional).",
+      "value": "",
+      "required": false
+    },
+    "HEROKU_APP_NAME": {
+      "description": "Enter your Heroku app name (optional).",
+      "value": "",
+      "required": false
+    },
+    "SESSION_ID": {
+      "description": "Enter the session ID received after scanning the QR code.",
+      "value": "",
+      "required": true
+    },
+    "OWNER_NAME": {
+      "description": "Enter your name.",
+      "value": Nicolaus Daniel 😈",
+      "required": false
+    },
+    "NUMERO_OWNER": {
+      "description": "Enter your phone number with country code (e.g., '228' for Togo, without '+').",
+      "value": "255652398614",
+      "required": false
+    },
+    "WARN_COUNT": {
+      "description": "Set the warning limit for warning commands.",
+      "value": "3",
+      "required": false
+    },
+    "STARTING_BOT_MESSAGE": {
+      "description": "Enable the bot startup message ('yes' to enable, 'no' to disable).",
+      "value": "yes",
+      "required": true
+    },
+    "PRESENCE": {
+      "description": "Set presence status: '1' for always online, '2' for typing, '3' for recording audio, or leave blank for real status.",
+      "value": "2",
+      "required": true
+    },
+    "ANTI_DELETE_MESSAGE": {
+      "description": "Enable anti-delete message feature ('yes' to enable, 'no' to disable).",
+      "value": "no",
+      "required": true
+    }
+  },
+  "formation": {
+    "worker": {
+      "quantity": 1,
+      "size": "basic"
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql"
+    }
+  ]
+    }
